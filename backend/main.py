@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from insights import get_placeholder_insights
+from insights import get_live_insights
 
 app = FastAPI()
 
@@ -9,4 +9,4 @@ def root():
 
 @app.get("/insights")
 def insights():
-  return get_placeholder_insights()
+  return get_live_insights()

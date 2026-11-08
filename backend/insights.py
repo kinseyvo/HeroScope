@@ -1,3 +1,4 @@
+from archive import save_snapshot
 import requests
 
 API_TOKEN = "YOUR_TOKEN_HERE"
@@ -12,12 +13,17 @@ def search_hero(name):
     return data["results"][0]
   return None
 
-
+# Every time get_hero_insight() successfully retrieves a hero, it saves that hero's stats to the SQLite database before generating the insight.
 def get_hero_insight(hero_name):
   hero = search_hero(hero_name)
 
   if not hero:
-    return {"hero": hero_name, "insight": "Hero not found."}
+    return {
+      "hero": hero_name,
+      "insight": "Hero not found."
+    }
+
+  save_snapshot(hero)
   
   powerstats = hero["powerstats"]
 
